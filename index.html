@@ -55,9 +55,7 @@
     <button class="btn">Add new Todo</button>
     <script>
         let todoNumber = 0;
-        let todos = [{ id: ++todoNumber, name: 'java' },
-        { id: ++todoNumber, name: 'python' },
-        { id: ++todoNumber, name: 'javascript' }
+        let todos = [
         ];
         console.log(todos)
         const ul = document.querySelector('.list');
@@ -100,7 +98,7 @@
             ul.innerHTML = output;
             console.log(ul)
         }
-        showAllTodos();
+        
 
         function deleteTodo(event) {
             console.log(this)
