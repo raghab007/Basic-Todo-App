@@ -1,0 +1,17 @@
+.container{
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  
+  
+   
+}
+/* .list{
+    margin: auto ;
+} */
+
+
+.list li{
+    list-style-type: none;
+}
+

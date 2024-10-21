@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Todo App</title>
+    <style>
+        body{
+            background-color: rgb(49, 43, 43);
+            background-image: url(pexels-veeterzy-303383.jpg);
+            background-size: cover;
+        }
+        h1 {
+            text-align: center;
+        }
+        .update{
+            background-color: green;
+            padding: 10px;
+            margin: 5px;
+        }
+        .todo{
+            background-color: red;
+            padding: 10px;
+            margin: 5px;
+        }
+        .todo-item{
+            font-size: larger;
+            font-weight: 700;
+        }
+
+        #input{
+            background-color: black;
+            padding: 15px;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 600;
+           
+        }
+        .btn{
+            padding: 15px;
+            margin-left: 5%px;
+            background-color: aqua;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Basic todo app</h1>
+    <div class="container">
+        <ul class="list">
+
+        </ul>
+    </div>
+    <input id="input" type="text" placeholder="enter your todo">
+    <button class="btn">Add new Todo</button>
+    <script>
+        let todoNumber = 0;
+        let todos = [{ id: ++todoNumber, name: 'java' },
+        { id: ++todoNumber, name: 'python' },
+        { id: ++todoNumber, name: 'javascript' }
+        ];
+        console.log(todos)
+        const ul = document.querySelector('.list');
+
+        function addTodo() {
+            const input = document.querySelector('#input');
+            const value = input.value;
+            const newTodo = { id: ++todoNumber, name: value }
+            todos.push(newTodo);
+            const li = document.createElement('li');
+            const div = document.createElement('div');
+            li.innerHTML = todoNumber + ". " + value;
+            li.setAttribute('id','todo-'+todoNumber);
+            li.setAttribute('class','todo-item')
+            const newButton = document.createElement('button');
+            const anotherButton  = document.createElement('button');
+            anotherButton.classList.add('update');
+            anotherButton.innerHTML = 'Update todo';
+            newButton.classList.add('todo');
+            newButton.innerHTML = 'Delete'
+            newButton.id =todoNumber;
+            div.appendChild(li);
+            div.classList.add('todo-container')
+            div.appendChild(newButton);
+            div.appendChild(anotherButton);
+            ul.appendChild(div)
+            addDeleteListener();
+
+        }
+
+        document.querySelector('.btn').addEventListener('click', addTodo)
+        function showAllTodos() {
+            let output = '';
+            todos.forEach(todo => {
+                
+                output = output + `<div class="todo-container"><li class='todo-item' id =todo-${todo.id} >${todo.id + " ." + todo.name}</li><button id=${todo.id} class ='todo'>Delete</button><button class="update" name="${todo.id}">Update todo</button></div>`
+                
+            })
+
+            ul.innerHTML = output;
+            console.log(ul)
+        }
+        showAllTodos();
+
+        function deleteTodo(event) {
+            console.log(this)
+            const todoId =this.id
+          console.log(todoId)
+            const element  =document.querySelector('#todo-'+todoId);
+          element.parentNode.remove();
+          todoNumber--;
+
+        }
+        
+        function addDeleteListener(){
+        document.querySelectorAll('.todo').forEach(todo => {
+            todo.addEventListener('click', deleteTodo)
+        })
+    }
+    addDeleteListener();
+
+    function updateTodo(){
+        const name = this.name;
+        const input = document.querySelector('#input');
+        const element  = document.querySelector('#todo-'+name);
+        element.innerHTML = name+'.'+input.value;
+    }
+
+    document.querySelectorAll('.update').forEach(btn=>{
+        btn.addEventListener('click',updateTodo)
+    })
+
+    </script>
+</body>
+
+</html>
